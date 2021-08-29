@@ -1,4 +1,31 @@
 package Companies.Amazon;
+//https://www.youtube.com/watch?v=tmakGVOGV3A
+/*
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+ 
+
+Constraints:
+
+1 <= prices.length <= 10^5
+0 <= prices[i] <= 10^4
+*/
 
 public class BestTimetoBuyandSellStock {
     /* Once */
@@ -6,15 +33,20 @@ public class BestTimetoBuyandSellStock {
         if (prices.length == 0) {
             return 0;
         }
-        int re = 0, min = prices[0];
+        int prof = 0, min = prices[0];
         for (int i = 1; i < prices.length; i++) {
             min = Math.min(min, prices[i]);
-            re = Math.max(re, prices[i]-min);
+            prof = Math.max(prof, prices[i]-min);
         }
-        return re;
+        return prof;
     }
 
-    /* Multiple times */
+    /* Multiple times 
+    https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+    Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+    */
     public int maxProfitII(int[] prices) {
         if (prices.length == 0) {
             return 0;

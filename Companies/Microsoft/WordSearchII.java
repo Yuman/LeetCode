@@ -7,28 +7,28 @@ import java.util.List;
  * find all words in the board.
  */
 public class WordSearchII {
-    private int[][] dirs = {{0,1}, {0,-1}, {-1,0}, {1, 0}};
+    private int[][] dirs = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
 
     public List<String> findWords(char[][] board, String[] words) {
-        List<String> re = new ArrayList<>();
+        List<String> found = new ArrayList<>();
         TrieNode root = createTrie(words);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                dfs(re, board, root, i, j);
+                dfs(found, board, root, i, j);
             }
         }
-        return re;
+        return found;
     }
 
     private void dfs(List<String> re, char[][] board, TrieNode root, int x, int y) {
         char c = board[x][y];
-        if (c == '$' || root.children[c-'a'] == null) {
-            return;
+        if (c == '$' || root.children[c - 'a'] == null) {
+            return; // char used or not matching root of trie
         }
-        TrieNode child = root.children[c-'a'];
+        TrieNode child = root.children[c - 'a'];
         if (child.word != null) {
             re.add(child.word);
-            child.word = null;  // in case "oath" and "oa"
+            child.word = null; // in case "oath" and "oa"
         }
         board[x][y] = '$';
         for (int[] dir : dirs) {
@@ -46,10 +46,10 @@ public class WordSearchII {
         for (String word : words) {
             TrieNode cur = root;
             for (char c : word.toCharArray()) {
-                if (cur.children[c-'a'] == null) {
-                    cur.children[c-'a'] = new TrieNode();
+                if (cur.children[c - 'a'] == null) {
+                    cur.children[c - 'a'] = new TrieNode();
                 }
-                cur = cur.children[c-'a'];
+                cur = cur.children[c - 'a'];
             }
             cur.word = word;
         }
@@ -58,6 +58,20 @@ public class WordSearchII {
 
     class TrieNode {
         TrieNode[] children = new TrieNode[26];
-        String word;
+        String word; // indicating isWord
+    }
+
+    /*
+     * Input: board =
+     * [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
+     * words = ["oath","pea","eat","rain"] Output: ["eat","oath"]
+     */
+    public static void main(String[] a) {
+        char[][] board = { { 'o', 'a', 'a', 'n' }, { 'e', 't', 'a', 'e' }, { 'i', 'h', 'k', 'r' },
+                { 'i', 'f', 'l', 'v' } };
+        String[] words = { "oath", "pea", "eat", "rain" };
+        WordSearchII ws = new WordSearchII();
+        ws.createTrie(words);
+        System.out.println(ws.findWords(board, words));
     }
 }

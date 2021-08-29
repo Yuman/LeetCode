@@ -3,9 +3,8 @@ package Companies.Amazon;
 import java.util.*;
 
 /**
- * O(M×N)
- * M is the length of words
- * N is the total number of words in the input word list.
+ * O(M×N) M is the length of words N is the total number of words in the input
+ * word list.
  */
 public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
@@ -13,7 +12,7 @@ public class WordLadder {
         int len = beginWord.length(), step = 1;
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             step++;
             int size = q.size();
             for (int i = 0; i < size; i++) {

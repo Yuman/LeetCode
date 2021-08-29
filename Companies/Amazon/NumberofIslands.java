@@ -21,36 +21,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @see Companies.Bloomberg.NumberofIslandsII
  */
 public class NumberofIslands {
-    private static int[][] dirs = {{0,-1},{-1,0},{0,1},{1,0}};
+    private static int[][] dirs = { { 0, -1 }, { -1, 0 }, { 0, 1 }, { 1, 0 } };
 
-    public static int numIslands(char[][] grid) {
+    public int numIslands(char[][] grid) {
         int re = 0;
         int m = grid.length, n = grid[0].length;
-//        int num = 0, neigh = 0;
+        // int num = 0, neigh = 0;
         boolean[][] marks = new boolean[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '1' && !marks[i][j]) {
                     re++;
                     dfs(grid, i, j, marks);
-//                    num += temp[0];
-//                    neigh += temp[1];
+                    // num += temp[0];
+                    // neigh += temp[1];
                 }
             }
         }
-//        int sum = num*4 - neigh*2; // sum of perimeter of islands
+        // int sum = num*4 - neigh*2; // sum of perimeter of islands
         return re;
     }
 
-    private static void dfs(char[][] grid, int x, int y, boolean[][] marks) {
+    private void dfs(char[][] grid, int x, int y, boolean[][] marks) {
         marks[x][y] = true;
-//        int num = 1, neigh = 0;
-//        if (x < grid.length-1 && grid[x+1][y] == '1') {
-//            neigh++;
-//        }
-//        if (y < grid[0].length-1 && grid[x][y+1] == '1') {
-//            neigh++;
-//        }
+        // int num = 1, neigh = 0;
+        // if (x < grid.length-1 && grid[x+1][y] == '1') {
+        // neigh++;
+        // }
+        // if (y < grid[0].length-1 && grid[x][y+1] == '1') {
+        // neigh++;
+        // }
         for (int[] dir : dirs) {
             int xx = x + dir[0];
             int yy = y + dir[1];
@@ -58,10 +58,10 @@ public class NumberofIslands {
                 continue;
             }
             dfs(grid, xx, yy, marks);
-//            num += temp[0];
-//            neigh += temp[1];
+            // num += temp[0];
+            // neigh += temp[1];
         }
-//        return new int[]{num, neigh};
+        // return new int[]{num, neigh};
     }
 
     public int numIslandsII(char[][] grid) {
@@ -76,14 +76,14 @@ public class NumberofIslands {
                     num++;
                     grid[i][j] = '0'; // mark as visited
                     Queue<Integer> neighbors = new LinkedList<>();
-                    neighbors.add(i*n + j);
+                    neighbors.add(i * n + j);
                     while (!neighbors.isEmpty()) {
                         int id = neighbors.remove();
                         for (int[] dir : dirs) {
                             int row = id / n + dir[0];
                             int col = id % n + dir[1];
                             if (row >= 0 && row < m && col >= 0 && col < n && grid[row][col] == '1') {
-                                neighbors.add(row*n + col);
+                                neighbors.add(row * n + col);
                                 grid[row][col] = '0';
                             }
                         }
@@ -95,27 +95,47 @@ public class NumberofIslands {
         return num;
     }
 
+    int numIslandsR(char[][] grid) {
+        int iCount = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    iCount++;
+                    mark(grid, i, j);
+                }
+            }
+        }
+        return iCount;
+    }
+
+    private void mark(char[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') {
+            return;
+        }
+        grid[i][j] = '0';
+        mark(grid, i + 1, j);
+        mark(grid, i, j + 1);
+        mark(grid, i - 1, j);
+        mark(grid, i, j - 1);
+    }
+
+    public static void main(String[] a) {
+        NumberofIslands ni = new NumberofIslands();
+        System.out.println(ni.numIslands(new char[][] { { '1', '1', '1', '1', '0' }, { '1', '1', '0', '1', '0' },
+                { '1', '1', '0', '0', '0' }, { '0', '0', '0', '0', '0' } })); // 1
+        System.out.println(ni.numIslandsR(new char[][] { { '1', '1', '1', '1', '0' }, { '1', '1', '0', '1', '0' },
+                { '1', '1', '0', '0', '0' }, { '0', '0', '0', '0', '0' } })); // 1
+
+    }
+
     @Test
     void test() {
-        assertEquals(1, numIslands(new char[][]{
-                {'1','1','1','1','0'},
-                {'1','1','0','1','0'},
-                {'1','1','0','0','0'},
-                {'0','0','0','0','0'}}));
-        assertEquals(3, numIslands(new char[][]{
-                {'1','1','0','0','0'},
-                {'1','1','0','0','0'},
-                {'0','0','1','0','0'},
-                {'0','0','0','1','1'}}));
-        assertEquals(1, numIslandsII(new char[][]{
-                {'1','1','1','1','0'},
-                {'1','1','0','1','0'},
-                {'1','1','0','0','0'},
-                {'0','0','0','0','0'}}));
-        assertEquals(3, numIslandsII(new char[][]{
-                {'1','1','0','0','0'},
-                {'1','1','0','0','0'},
-                {'0','0','1','0','0'},
-                {'0','0','0','1','1'}}));
+
+        assertEquals(3, numIslands(new char[][] { { '1', '1', '0', '0', '0' }, { '1', '1', '0', '0', '0' },
+                { '0', '0', '1', '0', '0' }, { '0', '0', '0', '1', '1' } }));
+        assertEquals(1, numIslandsII(new char[][] { { '1', '1', '1', '1', '0' }, { '1', '1', '0', '1', '0' },
+                { '1', '1', '0', '0', '0' }, { '0', '0', '0', '0', '0' } }));
+        assertEquals(3, numIslandsII(new char[][] { { '1', '1', '0', '0', '0' }, { '1', '1', '0', '0', '0' },
+                { '0', '0', '1', '0', '0' }, { '0', '0', '0', '1', '1' } }));
     }
 }

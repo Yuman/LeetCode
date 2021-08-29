@@ -1,6 +1,7 @@
 package Topics.Design;
 
 import java.util.*;
+// https://leetcode.com/problems/insert-delete-getrandom-o1/discuss/85401/Java-solution-using-a-HashMap-and-an-ArrayList-along-with-a-follow-up.-(131-ms)
 
 public class RandomizedCollection {
     private Map<Integer, Set<Integer>> map; // val, positions

@@ -5,22 +5,22 @@ import Libs.ListNode;
 public class ReverseLinkedList {
     /* Iterative */
     public ListNode reverseList(ListNode head) {
-        ListNode re = null;
+        ListNode prev = null;
         while (head != null) {
-            ListNode temp = head.next;
-            head.next = re;
-            re = head;
-            head = temp;
+            ListNode nxt = head.next; // set up: working set has 3 nodes: prev - head - nxt. 
+            head.next = prev;  // flip head to tail
+            prev = head;  // tandem move hind leg
+            head = nxt;   // move head forward. at the end, head==null==nxt
         }
-        return re;
+        return prev;
     }
 
     /* Recursive */
-    public ListNode reverseListII(ListNode head) {
+    public ListNode reverseListR(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode p = reverseListII(head.next);
+        ListNode p = reverseListR(head.next);
         head.next.next = head;
         head.next = null;
         return p;

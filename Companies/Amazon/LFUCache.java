@@ -14,7 +14,8 @@ public class LFUCache {
 
     /**
      * We make a node-list, head with freq0, node1 with freq1, node2 with freq2...
-     * For each frequency node, we use a queue to store keys with that frequency, and obviously front keys
+     * For each frequency node, we use a queue to store keys with that frequency, 
+     * and obviously front keys
      * meaning less recent used, so we can easily poll them out and delete.
      */
     public LFUCache(int capacity) {

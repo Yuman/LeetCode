@@ -1,7 +1,10 @@
 package Topics.Design;
 
 import java.util.*;
-
+/*
+https://leetcode.com/problems/insert-delete-getrandom-o1/
+https://www.youtube.com/watch?v=TD2g8UjXMLA
+*/
 public class RandomizedSet {
     private List<Integer> l = new ArrayList<>();
     private Map<Integer, Integer> m = new HashMap<>(); // value, position
@@ -34,7 +37,7 @@ public class RandomizedSet {
             m.put(last, index); // no need to swap
             l.set(index, last);
         }
-        l.remove(l.size()-1);
+        l.remove(l.size()-1);  // removing last is O(1)
         return true;
     }
 

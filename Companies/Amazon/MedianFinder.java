@@ -24,9 +24,9 @@ public class MedianFinder {
     public double findMedian() {
         int len = l.size();
         if (len % 2 == 1) {
-            return l.get(len/2) / 1.0;
+            return l.get(len / 2) / 1.0;
         } else {
-            return (l.get(len/2) + l.get(len/2-1)) / 2.0;
+            return (l.get(len / 2) + l.get(len / 2 - 1)) / 2.0;
         }
     }
 
@@ -34,32 +34,30 @@ public class MedianFinder {
         if (left == right) {
             l.add(left, num);
         } else {
-            int index = left + (right-left)/2;
+            int index = left + (right - left) / 2;
             int median = l.get(index);
             if (median == num) {
                 l.add(index, num);
             } else if (median > num) {
                 helper(num, left, index);
             } else {
-                helper(num, index+1, right);
+                helper(num, index + 1, right);
             }
         }
     }
 
-    private Queue<Integer> small = new PriorityQueue<>((a,b)->b-a);
-    private Queue<Integer> large = new PriorityQueue<>();
+    // https://leetcode.com/problems/find-median-from-data-stream/discuss/74144/Easy-to-understand-double-heap-solution-in-Java
+    private Queue<Integer> small = new PriorityQueue<>((a, b) -> b - a);
+    private Queue<Integer> large = new PriorityQueue<>(); // larger in size for smaller numbers
 
-//    public void addNum(int num) {
-//        large.add(num);
-//        small.add(large.poll());
-//        if (large.size() < small.size())
-//            large.add(small.poll());
-//    }
-//
-//
-//    public double findMedian() {
-//        return large.size() > small.size()
-//                ? large.peek()
-//                : (large.peek() + small.peek()) / 2.0;
-//    }
+    public void addNumPQ(int num) {
+        large.add(num);
+        small.add(large.poll());  // adding goes through both heaps
+        if (large.size() < small.size())
+            large.add(small.poll());
+    }
+
+    public double findMedianPQ() {
+        return large.size() > small.size() ? large.peek() : (large.peek() + small.peek()) / 2.0;
+    }
 }

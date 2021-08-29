@@ -2,9 +2,6 @@ package Topics.BTree;
 
 import Libs.TreeNode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class BTSumofLeftLeaves {
     public int sumOfLeftLeaves(TreeNode root) {
         if (root == null) {
@@ -12,7 +9,7 @@ public class BTSumofLeftLeaves {
         }
         int sum = 0;
         if (root.left != null) {
-            if (root.left.left == null && root.left.right == null) {
+            if (root.left.left == null && root.left.right == null) {// isLeaf
                 sum += root.left.val;
             } else {
                 sum += sumOfLeftLeaves(root.left);

@@ -2,7 +2,13 @@ package Companies.Amazon;
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
 
+There is only one repeated number in nums, return this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
+*/
 /**
  * @see LinkedListCycle
  */
@@ -24,7 +30,7 @@ public class FindtheDuplicateNumber {
     /* Warning: Modify the array */
     public int findDuplicateII(int[] nums) {
         for (int num : nums) {
-            int index = Math.abs(num)-1;
+            int index = Math.abs(num)-1;  // mark with '-', ignore with Math.abs()
             if (nums[index] < 0) {
                 return index+1;
             }
@@ -41,7 +47,7 @@ public class FindtheDuplicateNumber {
             if (nums[index] < 0) {
                 l.add(index+1);
             }
-            nums[index] = -nums[index];
+            nums[index] = -nums[index];  // using minus sign '-' as a marker; Math.abs() to neutralize it
         }
         return l;
     }

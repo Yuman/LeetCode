@@ -1,36 +1,40 @@
 package Companies.Amazon;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * @Follow-up:
- * 1. What if the given array is already sorted? How would you optimize your algorithm?
- *    The sorting way, it will give us linear time and constant memory complexity.
+ * @Follow-up: 1. What if the given array is already sorted? How would you
+ *             optimize your algorithm? The sorting way, it will give us linear
+ *             time and constant memory complexity.
  *
- * 2. What if nums1's size is small compared to nums2's size? Which algorithm is better?
- *    Use a HashMap for the smaller array.
+ *             2. What if nums1's size is small compared to nums2's size? Which
+ *             algorithm is better? Use a HashMap for the smaller array.
  *
- * 3. What if elements of nums2 are stored on disk, and the memory is limited such that you
- * cannot load all elements into the memory at once?
+ *             3. What if elements of nums2 are stored on disk, and the memory
+ *             is limited such that you cannot load all elements into the memory
+ *             at once?
  *
- *    - If nums1 fits into the memory, we can use HashMap way to collect counts for nums1 into a hash map.
- *    Then, we can sequentially load and process nums2.
+ *             - If nums1 fits into the memory, we can use HashMap way to
+ *             collect counts for nums1 into a hash map. Then, we can
+ *             sequentially load and process nums2.
  *
- *    - If neither of the arrays fit into the memory, we can apply some partial processing strategies:
- *      a. Split the numeric range into subranges that fits into the memory. Modify HashMap way to collect
- *      counts only within a given subrange, and call the method multiple times (for each subrange).
+ *             - If neither of the arrays fit into the memory, we can apply some
+ *             partial processing strategies: a. Split the numeric range into
+ *             subranges that fits into the memory. Modify HashMap way to
+ *             collect counts only within a given subrange, and call the method
+ *             multiple times (for each subrange).
  *
- *      b. Use an external sort for both arrays. Modify Sorting way to load and process arrays sequentially.
+ *             b. Use an external sort for both arrays. Modify Sorting way to
+ *             load and process arrays sequentially.
  *
  */
 public class IntersectionofTwoArrays {
 
     /**
-     * Input: nums1 = [1,2,2,1], nums2 = [2,2]
-     * Output: [2]
+     * Input: nums1 = [1,2,2,1], nums2 = [2,2] Output: [2]
      *
-     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-     * Output: [9,4]
+     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4] Output: [9,4]
      */
     public int[] intersection(int[] nums1, int[] nums2) {
         Set<Integer> set = new HashSet<>();
@@ -51,12 +55,15 @@ public class IntersectionofTwoArrays {
         return result;
     }
 
+    public int[] intersectionJ8(int[] nums1, int[] nums2) {
+        Set<Integer> set = Arrays.stream(nums2).boxed().collect(Collectors.toSet());
+        return Arrays.stream(nums1).distinct().filter(e -> set.contains(e)).toArray();
+    }
+
     /**
-     * Input: nums1 = [1,2,2,1], nums2 = [2,2]
-     * Output: [2,2]
+     * Input: nums1 = [1,2,2,1], nums2 = [2,2] Output: [2,2]
      *
-     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-     * Output: [4,9]
+     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4] Output: [4,9]
      */
     public int[] intersect(int[] nums1, int[] nums2) {
         if (nums1.length > nums2.length) {
@@ -64,13 +71,13 @@ public class IntersectionofTwoArrays {
         }
         Map<Integer, Integer> m = new HashMap<>();
         for (int num : nums1) {
-            m.put(num, m.getOrDefault(num, 0)+1);
+            m.put(num, m.getOrDefault(num, 0) + 1);
         }
         int index = 0;
         for (int num : nums2) {
             int count = m.getOrDefault(num, 0);
             if (count > 0) {
-                m.put(num, count-1);
+                m.put(num, count - 1);
                 nums1[index++] = num;
             }
         }

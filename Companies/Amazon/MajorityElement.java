@@ -1,10 +1,11 @@
 package Companies.Amazon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MajorityElement {
-    public int majorityElement(int[] nums) {
+    public int majorityElement(int[] nums) { // count only dupes, kill all diffs
         int major = nums[0], count = 1;
         for (int i = 1; i < nums.length; i++) {
             if (count == 0) {
@@ -19,10 +20,15 @@ public class MajorityElement {
         return major;
     }
 
+    public int majorityElementSort(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length / 2];
+    }
+
     /* find all elements that appear more than ⌊ n/3 ⌋ times. */
     public List<Integer> majorityElementII(int[] nums) {
         List<Integer> res = new ArrayList<>();
-        if(nums.length == 0)
+        if (nums.length == 0)
             return res;
         int count1 = 0, count2 = 0, num1 = 0, num2 = 1;
         for (int num : nums) {
@@ -43,15 +49,15 @@ public class MajorityElement {
         }
         count1 = 0;
         count2 = 0;
-        for(int val : nums) {
-            if(val == num1)
+        for (int val : nums) {
+            if (val == num1)
                 count1++;
-            else if(val == num2)
+            else if (val == num2)
                 count2++;
         }
-        if(count1 > nums.length/3)
+        if (count1 > nums.length / 3)
             res.add(num1);
-        if(count2 > nums.length/3)
+        if (count2 > nums.length / 3)
             res.add(num2);
         return res;
     }

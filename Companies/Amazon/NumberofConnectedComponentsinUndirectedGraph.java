@@ -2,7 +2,9 @@ package Companies.Amazon;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+https://www.youtube.com/watch?v=ymxPZk7TesQ
+*/
 public class NumberofConnectedComponentsinUndirectedGraph {
     /** Union-find */
     public int countComponentsI(int n, int[][] edges) {
@@ -34,7 +36,9 @@ public class NumberofConnectedComponentsinUndirectedGraph {
         for (int i = 0; i < n; i++) {
             l.add(new ArrayList<>());
         }
-        for (int[] edge : edges) {
+        for (int[] edge : edges) { // build graph, array index is used as the node id
+            //this only works whe nodes are labelled [0..n-1]
+            // a map is need otherwise
             l.get(edge[0]).add(edge[1]);
             l.get(edge[1]).add(edge[0]);
         }

@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * The expression string may contain open '(' and closing parentheses ')',
- * plus '+' or minus '-', non-negative integers and empty spaces .
+ * The expression string may contain open '(' and closing parentheses ')', plus
+ * '+' or minus '-', non-negative integers and empty spaces .
  */
 public class BasicCalculator {
     public int calculate(String s) {
@@ -25,7 +25,7 @@ public class BasicCalculator {
         while (!q.isEmpty()) {
             char c = q.poll();
             if (Character.isDigit(c)) {
-                num = num*10+c-'0';
+                num = num * 10 + c - '0';
             } else if (c == '(') {
                 num = helper(q);
             } else {
@@ -43,6 +43,6 @@ public class BasicCalculator {
                 num = 0;
             }
         }
-        return sum+prev;
+        return sum + prev;
     }
 }

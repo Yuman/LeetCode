@@ -1,4 +1,10 @@
 package Companies.Amazon;
+/*
+Given a non-empty array of integers nums, every element appears twice except for one. 
+Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+*/
 
 //    a = 0011 1100
 //    b = 0000 1101
@@ -30,7 +36,7 @@ public class SingleNumber {
             }
             dsum += num;
         }
-        return sum*2-dsum;
+        return sum * 2 - dsum;
     }
 
     /* Every element appears three times except for one */
@@ -43,7 +49,10 @@ public class SingleNumber {
         return one;
     }
 
-    /* exactly two elements appear only once and all the other elements appear exactly twice */
+    /*
+     * exactly two elements appear only once and all the other elements appear
+     * exactly twice
+     */
     public int[] singleNumberIII(int[] nums) {
         int i = 0;
         for (int num : nums) {
@@ -56,6 +65,27 @@ public class SingleNumber {
                 x ^= num;
             }
         }
-        return new int[]{x, i^x};
+        return new int[] { x, i ^ x };
+    }
+
+    public int singleNumberSum(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        int sum = 0;
+        for (int n : nums) {
+            if (set.contains(n)) {
+                sum -= n;
+
+            } else {
+                set.add(n);
+                sum += n;
+            }
+        }
+        return sum;
+    }
+
+    public static void main(String[] a) {
+        SingleNumber sn = new SingleNumber();
+        int[] nums = { 1, 1, 2, 2, 3, 4, 4 };
+        System.out.println(sn.singleNumberSum(nums));
     }
 }

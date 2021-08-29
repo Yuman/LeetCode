@@ -22,11 +22,26 @@ public class ValidSudoku {
             }
             for (int m = 0; m < 3; m++) {
                 for (int n = 0; n < 3; n++) {
-                    int r = i/3*3+m, c = i%3*3+n;
+                    int r = i / 3 * 3 + m, c = i % 3 * 3 + n;
                     if (board[r][c] != '.' && !sub.add(board[r][c])) {
                         return false;
                     }
                 }
+            }
+        }
+        return true;
+    }
+
+    public boolean isValidSudoku2(char[][] board) {
+        Set<String> seen = new HashSet<>();
+        for (int i = 0; i < 9; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                char number = board[i][j];
+                if (number != '.')
+                    if (!seen.add(number + " in row " + i) 
+                    || !seen.add(number + " in column " + j)
+                    || !seen.add(number + " in block " + i / 3 + "-" + j / 3))
+                        return false;
             }
         }
         return true;

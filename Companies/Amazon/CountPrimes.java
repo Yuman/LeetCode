@@ -7,7 +7,7 @@ public class CountPrimes {
             return 0;
         }
         int count = 2; // 0 and 1
-        for (int i = 2; i < Math.sqrt(n); i++) {
+        for (int i = 2; i < Math.sqrt(n); i++) {// sieve of era
             if (!dp[i]) {
                 for (int j = i*i; j < n; j += i) {
                     if (dp[j]) {

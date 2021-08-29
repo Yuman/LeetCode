@@ -6,7 +6,7 @@ public class UglyNumber {
             return false;
         }
         for (int i = 2; i <= 5 && num > 0; i++) {
-            while (num%i == 0) {
+            while (num % i == 0) {
                 num /= i;
             }
         }
@@ -21,17 +21,34 @@ public class UglyNumber {
         dp[0] = 1;
         int c2 = 0, c3 = 0, c5 = 0;
         for (int i = 1; i < n; i++) {
-            dp[i] = Math.min(dp[c2]*2, Math.min(dp[c3]*3, dp[c5]*5));
-            if (dp[i] == dp[c2]*2) {
+            dp[i] = Math.min(dp[c2] * 2, Math.min(dp[c3] * 3, dp[c5] * 5));
+            if (dp[i] == dp[c2] * 2) {
                 c2++;
             }
-            if (dp[i] == dp[c3]*3) {
+            if (dp[i] == dp[c3] * 3) {
                 c3++;
             }
-            if (dp[i] == dp[c5]*5) {
+            if (dp[i] == dp[c5] * 5) {
                 c5++;
             }
         }
-        return dp[n-1];
+        return dp[n - 1];
     }
+
+    public boolean isUgly2(int num) {
+        for (int f = 2; f <= 5;) {
+            if (num % f == 0) {
+                num /= f;
+            } else
+                f++;
+        }
+        return num == 1;
+    }
+
+    public static void main(String[] a) {
+        UglyNumber ug = new UglyNumber();
+        System.out.println(ug.isUgly2(31));
+        System.out.println(ug.isUgly2(8));
+    }
+
 }
