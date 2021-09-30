@@ -13,7 +13,7 @@ package Companies.Amazon;
  * @see Companies.Bloomberg.CharInStrAtoBuildStrB
  */
 public class IsSubsequence {
-    public boolean isSubsequence(String s, String t) {
+    public boolean isSubsequence(String s, String t) {// two pointer, a leader and a conditional follower
         if (s.length() == 0) {
             return true;
         }

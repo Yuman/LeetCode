@@ -58,7 +58,7 @@ public class Graph<T extends GraphNode<?>> {
         Map<GraphNode<?>, GraphNode<?>> traceback = new HashMap<>();
         Queue<GraphNode<?>> q = new ArrayDeque<>();
         q.offer(aTarget);
-        traceback.put(aTarget, null); // traceback has (to, from)
+        traceback.put(aTarget, null); // traceback has (to, from). target is a key
         while (!q.isEmpty()) {
             GraphNode<?> curr = q.poll();
             curr.getAdjacentNodes().stream().filter(aNode -> !traceback.containsKey(aNode)).forEach(aNode -> {

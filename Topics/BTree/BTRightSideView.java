@@ -19,12 +19,13 @@ class BTRightSideView {
             if (depth == l.size()) {
                 l.add(root.val);
             }
-            helper(l, root.right, depth+1);
-            helper(l, root.left, depth+1);
+            helper(l, root.right, depth + 1);
+            helper(l, root.left, depth + 1);
         }
     }
 
     public List<Integer> rightSideViewII(TreeNode root) {
+        // Do a reverse level order traversal, and add the first node on every layer.
         List<Integer> l = new ArrayList<>();
         Queue<TreeNode> q = new LinkedList<>();
         if (root == null) {
@@ -47,5 +48,13 @@ class BTRightSideView {
             }
         }
         return l;
+    }
+
+    public List<Integer> rightSideViewR(TreeNode root) {// ??
+        List<Integer> l = new ArrayList<>();
+        if (root == null)
+            return l;
+        l.add(root.val);
+        return rightSideViewR(root.right);
     }
 }

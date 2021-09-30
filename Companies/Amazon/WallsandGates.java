@@ -16,9 +16,9 @@ public class WallsandGates {
             return;
         }
         rooms[i][j] = step;
-        dfs(rooms, i+1, j, step+1);
-        dfs(rooms, i, j+1, step+1);
-        dfs(rooms, i-1, j, step+1);
-        dfs(rooms, i, j-1, step+1);
+        dfs(rooms, i + 1, j, step + 1);
+        dfs(rooms, i, j + 1, step + 1);
+        dfs(rooms, i - 1, j, step + 1);
+        dfs(rooms, i, j - 1, step + 1);
     }
 }

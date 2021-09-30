@@ -12,7 +12,7 @@ public class MaximumSubarraySum {
         return max;
     }
 
-    public int maxSubArrayII(int[] nums) {
+    public int maxSubArrayII(int[] nums) { // cleaest formula
         int max = Integer.MIN_VALUE, sum = 0;
         for (int num : nums) {
             sum = Math.max(sum + num, num);
@@ -54,13 +54,32 @@ public class MaximumSubarraySum {
         return leftSum + rightSum;
     }
 
-    public int maxSubArray4(int[] nums) { //Kadane's algo
+    public int maxSubArray4(int[] nums) { // Kadane's algo
         int prev = nums[0], maxSum = prev;
         for (int i = 1; i < nums.length - 1; i++) {
             prev = Math.max(prev + nums[i], nums[i]);
             maxSum = Math.max(prev, maxSum);
         }
         return maxSum;
+    }
+
+    public static int maxSubArrayBentley(int[] A) {
+        int maxTracker = A[0], maxEndingHere = A[0];
+        for (int i = 1; i < A.length; ++i) {
+            maxEndingHere = Math.max(maxEndingHere + A[i], A[i]);// pick a new subarray
+            maxTracker = Math.max(maxTracker, maxEndingHere);
+        }
+        return maxTracker;
+    }
+
+    public int maxSubArrayDropNegative(int A[]) {
+        int maxSub = Integer.MIN_VALUE;
+        int leftPositive = 0;
+        for (int i = 0; i < A.length; i++) {
+            maxSub = Math.max(maxSub, leftPositive + A[i]);
+            leftPositive = Math.max(0, leftPositive + A[i]);
+        }
+        return maxSub;
     }
 
     public static void main(String[] a) {

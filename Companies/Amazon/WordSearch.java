@@ -15,9 +15,11 @@ It's like a crossword puzzle.
  */
 public class WordSearch {
     public boolean exist(char[][] b, String word) {
-        /* Find word's first letter word[0]. Then call method to check it's surroundings */
+        /*
+         * Find word's first letter word[0]. Then call method to check it's surroundings
+         */
         for (int r = 0; r < b.length; r++)
-            for (int c = 0; c < b[0].length; c++) { 
+            for (int c = 0; c < b[0].length; c++) {
                 if (b[r][c] == word.charAt(0) && help(b, word, 0, r, c))
                     return true;
             }
@@ -54,5 +56,30 @@ public class WordSearch {
         b[r][c] = tmp;
 
         return false;
+    }
+
+    public boolean exist2(char[][] board, String word) {
+        char[] w = word.toCharArray();
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                if (exist2(board, y, x, w, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean exist2(char[][] board, int y, int x, char[] word, int i) {
+        if (i == word.length)
+            return true;
+        if (y < 0 || x < 0 || y == board.length || x == board[y].length)
+            return false;
+        if (board[y][x] != word[i])
+            return false;
+        board[y][x] ^= 256; // hide
+        boolean exist = exist2(board, y, x + 1, word, i + 1) || exist2(board, y, x - 1, word, i + 1)
+                || exist2(board, y + 1, x, word, i + 1) || exist2(board, y - 1, x, word, i + 1);
+        board[y][x] ^= 256;  //show
+        return exist;
     }
 }

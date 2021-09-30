@@ -10,8 +10,8 @@ public class GoldbachImpl implements GoldbachService {
 
     public static void main(String[] args) {
         GoldbachService gb = new GoldbachImpl();
-        //List<PrimePair> ls = gb.findPrimePairs(20);
-         System.out.println(new GoldbachImpl().isPrime(2047));
+        List<PrimePair> ls = gb.findPrimePairs(20);
+        System.out.println(new GoldbachImpl().isPrime(2047));
     }
 
     @Override

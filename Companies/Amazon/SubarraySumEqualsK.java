@@ -1,20 +1,38 @@
 package Companies.Amazon;
 
 import java.util.HashMap;
-import java.util.Map;
 
+/*
+Given an array of integers nums and an integer k, 
+return the total number of continuous subarrays whose sum equals to k.
+
+@see ZeroSumSubarray
+*/
 public class SubarraySumEqualsK {
+    /*
+     * https://leetcode.com/problems/subarray-sum-equals-k/discuss/803317/Java-
+     * Solution-with-Detailed-Explanation
+     */
     public int subarraySum(int[] nums, int k) {
-        Map<Integer, Integer> m = new HashMap<>();
-        m.put(0, 1);
-        int sum = 0, re = 0;
-        for (int num : nums) {
-            sum += num;
-            if (m.containsKey(sum-k)) {
-                re += m.get(sum-k);
-            }
-            m.put(sum, m.getOrDefault(sum, 0)+1);
+        int count = 0, sum = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - k))  // the key (sum-k) handles all delta(sum)
+                count += map.get(sum - k);
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
-        return re;
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1,1,1};
+        int k = 2;
+        SubarraySumEqualsK sub = new SubarraySumEqualsK();
+        System.out.println(sub.subarraySum(nums, k));
+
+//Output: 2
     }
 }

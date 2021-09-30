@@ -1,12 +1,14 @@
 package Companies.Amazon;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Given an array of integers temperatures representing the daily temperatures,
  * return an array answer such that answer[i] is the number of days you have to
  * wait after the ith day to get a warmer temperature. If there is no future day
  * for which this is possible, keep answer[i] == 0 instead.
+ * 
+ * @see NextGreaterElement
  */
 public class DailyTemperatures {
     /**
@@ -41,13 +43,40 @@ public class DailyTemperatures {
      * comparing and poping the stack until it's empty.
      */
     public int[] dailyTemperaturesII(int[] T) {
-        Stack<Integer> stk = new Stack<>();
+        Stack<Integer> stk = new Stack<>();  // to keep positions to look for a warmer
         int[] res = new int[T.length];
-        for (int curr = 0; curr < T.length; curr++) {
-            while (!stk.isEmpty() && T[stk.peek()] < T[curr]) { // found warmer
-                res[stk.peek()] = curr - stk.pop();
+        for (int i = 0; i < T.length; i++) {
+            while (!stk.isEmpty() && T[stk.peek()] < T[i]) { // found warmer
+                res[stk.peek()] = i - stk.pop();
             }
-            stk.push(curr);
+            stk.push(i);
+        }
+        return res;
+    }
+
+    public int[] dailyTemperaturesIII(int[] T) {
+        if(T == null || T.length == 0){
+            return new int[]{};
+        }
+        Deque<Integer> stack = new LinkedList<>();
+        int[] res = new int[T.length];
+        //the idea is to keep all element in acsending order!
+        for(int i = 0; i < T.length; i++){  
+            if(stack.isEmpty()){  
+                //case1 : stack is empty, feel free to push
+                stack.offerFirst(i);
+            }else if(!stack.isEmpty() && T[i] > T[stack.peekFirst()]){  
+                //case2 : descending order happens: 
+                //pop all the smaller element out, then push the current element
+                while(!stack.isEmpty() && T[i] > T[stack.peekFirst()]){
+                    res[stack.peekFirst()] = i - stack.peekFirst();
+                    stack.pollFirst();
+                }
+                stack.offerFirst(i); //push current element to keep ascending order
+            }else{
+                //case3 : push current element to keep ascending order
+                stack.offerFirst(i);
+            }
         }
         return res;
     }

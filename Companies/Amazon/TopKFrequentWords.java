@@ -37,9 +37,9 @@ public class TopKFrequentWords {
             if (heap.size() > k) heap.poll();
         }
 
-        List<String> ans = new ArrayList<>();
-        while (!heap.isEmpty()) ans.add(heap.poll());
-        Collections.reverse(ans);
+        List<String> ans = new LinkedList<>();
+        while (!heap.isEmpty()) ans.add(0, heap.poll());
+        //Collections.reverse(ans);
         return ans;
     }
 }

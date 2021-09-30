@@ -6,11 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringCompression {
     /**
-     * Input: ['a','a','b','b','c','c','c']
-     * Output: 6, ['a','2','b','2','c','3']
+     * Input: ['a','a','b','b','c','c','c'] Output: 6, ['a','2','b','2','c','3']
      *
-     * Input: ['a','b','b','c','c','c']
-     * Output: 5, ['a','b','2','c','3']
+     * Input: ['a','b','b','c','c','c'] Output: 5, ['a','b','2','c','3']
      */
     public int compress(char[] chars) {
         int len = 0, i = 0;
@@ -36,14 +34,14 @@ public class StringCompression {
         int i = 0, len = chars.length, num = 0;
         while (i < len) {
             char c = chars[i];
-            if ((i == len-1) || ((i+1) < len && !Character.isDigit(chars[i+1]))) {
+            if ((i == len - 1) || ((i + 1) < len && !Character.isDigit(chars[i + 1]))) {
                 sb.append(c);
                 i++;
                 continue;
             }
             i++;
             while (i < chars.length && Character.isDigit(chars[i])) {
-                num = num*10 + chars[i]-'0';
+                num = num * 10 + chars[i] - '0';
                 i++;
             }
             while (num > 0) {
@@ -56,12 +54,12 @@ public class StringCompression {
 
     @Test
     void test() {
-        assertEquals(1, compress(new char[]{'a'}));
-        assertEquals(6, compress(new char[]{'a','a','b','b','c','c','c'}));
-        assertEquals(5, compress(new char[]{'a','b','b','c','c','c'}));
+        assertEquals(1, compress(new char[] { 'a' }));
+        assertEquals(6, compress(new char[] { 'a', 'a', 'b', 'b', 'c', 'c', 'c' }));
+        assertEquals(5, compress(new char[] { 'a', 'b', 'b', 'c', 'c', 'c' }));
 
-        assertEquals("a", deCompress(new char[]{'a'}));
-        assertEquals("abbccc", deCompress(new char[]{'a','b','2','c','3'}));
-        assertEquals("aabbccc", deCompress(new char[]{'a','2','b','2','c','3'}));
+        assertEquals("a", deCompress(new char[] { 'a' }));
+        assertEquals("abbccc", deCompress(new char[] { 'a', 'b', '2', 'c', '3' }));
+        assertEquals("aabbccc", deCompress(new char[] { 'a', '2', 'b', '2', 'c', '3' }));
     }
 }

@@ -33,13 +33,13 @@ public class LongestSubstringWithoutRepeatingChar {
     public int lengthOfLongestSubstring2(String s) {
         Map<Character, Integer> m = new HashMap<>();
         int re = 0, l = 0;
-        for (int r = 0; r < s.length(); r++) {
+        for (int r = 0; r < s.length(); r++) {// r: leading
             char c = s.charAt(r);
             if (m.containsKey(c)) {
-                l = Math.max(l, m.get(c));
+                l = Math.max(l, m.get(c));// move l  to the repeat position
             }
-            re = Math.max(re, r - l);
-            m.put(c, r);
+            re = Math.max(re, r - l); // update length
+            m.put(c, r);   // update c position
         }
         return re;
     }

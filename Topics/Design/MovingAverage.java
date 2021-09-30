@@ -14,7 +14,7 @@ public class MovingAverage {
     public double next(int val) {
         sum -= nums[count % size]; // current position in running cache = count % size
         sum += nums[count % size] = val;
-        count++;
+        count++;           // count += (++count)%size;  to keep count small
         return sum / Math.min(count, size);
     }
 

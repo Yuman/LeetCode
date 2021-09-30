@@ -23,8 +23,8 @@ public class MinimumWindowSubstring {
         int l = 0, r = 0, dis = Integer.MAX_VALUE, left = -1, count = m.size();
         while (r < s.length()) {
             char c = s.charAt(r);
-            m.put(c, m.getOrDefault(c, 0) - 1); // mark not-found as '-1'
-            if (m.get(c) == 0) {
+            m.put(c, m.getOrDefault(c, 0) - 1); // mark non-matching
+            if (m.get(c) == 0) { // matched one char
                 count--;
             }
             while (count == 0) {
@@ -44,7 +44,7 @@ public class MinimumWindowSubstring {
         return left == -1 ? "" : s.substring(left, left + dis);
     }
 
-    public String minWindowM2(String s, String t) {
+    public String minWindowM2(String s, String t) {//t is target
         HashMap<Character, Integer> map = new HashMap<>();
         for (char c : s.toCharArray())  // add letters in s to set
             map.put(c, 0);
@@ -55,31 +55,31 @@ public class MinimumWindowSubstring {
                 return "";              // check s contains all letters in t. a substring exists
         }
 
-        int start = 0, end = 0, minStart = 0, minLen = Integer.MAX_VALUE, counter = t.length();
-        while (end < s.length()) {
-            char c1 = s.charAt(end);  
+        int back = 0, front = 0, minBack = 0, minLen = Integer.MAX_VALUE, counter = t.length();
+        while (front < s.length()) {
+            char c1 = s.charAt(front);  
             if (map.get(c1) > 0)  // found one letter for t
                 counter--;
             map.put(c1, map.get(c1) - 1);
 
-            end++;
+            front++;
 
             while (counter == 0) {  // found all t letters, counter=0
-                if (minLen > end - start) {
-                    minLen = end - start;
-                    minStart = start;
+                if (minLen > front - back) {
+                    minLen = front - back;
+                    minBack = back;
                 }
 
-                char c2 = s.charAt(start);
+                char c2 = s.charAt(back);
                 map.put(c2, map.get(c2) + 1);
 
                 if (map.get(c2) > 0)
                     counter++;
 
-                start++;
+                back++;
             }
         }
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minBack, minBack + minLen);
     }
 
     public static void main(String[] a) {

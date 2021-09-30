@@ -5,34 +5,31 @@ import Libs.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+
+A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+
+*/
 public class PathSumII {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> re = new ArrayList<>();
-        if (root == null) {
-            return re;
-        }
-        List<Integer> l = new ArrayList<>();
-        l.add(root.val);
-        dfs(re, l, root, sum-root.val);
-        return re;
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {// this works on LC
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        helper(new ArrayList<Integer>(), root, sum, result);  // new List with each call
+        return result;
     }
 
-    private void dfs(List<List<Integer>> re, List<Integer> l, TreeNode root, int sum) {
+    private void helper(List<Integer> list, TreeNode root, int sum, List<List<Integer>> result) {
+        if (root == null)
+            return;
+        list.add(root.val);
+        sum -= root.val;
         if (root.left == null && root.right == null) {
-            if (sum == 0) {
-                re.add(new ArrayList<>(l));
-            }
+            if (sum == 0)
+                result.add(list);
             return;
         }
-        if (root.left != null) {
-            l.add(root.left.val);
-            dfs(re, l, root.left, sum - root.left.val);
-            l.remove(l.size()-1);
-        }
-        if (root.right != null) {
-            l.add(root.right.val);
-            dfs(re, l, root.right, sum - root.right.val);
-            l.remove(l.size()-1);
-        }
+        helper(new ArrayList<Integer>(list), root.left, sum, result);
+        helper(new ArrayList<Integer>(list), root.right, sum, result);
     }
 }

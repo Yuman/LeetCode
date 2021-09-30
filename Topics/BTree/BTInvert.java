@@ -26,11 +26,14 @@ public class BTInvert {
         }
         return root;
 
+    }
 
-//        TreeNode right = invertTree(root.right);
-//        TreeNode left = invertTree(root.left);
-//        root.left = right;
-//        root.right= left;
-//        return root;
+    public TreeNode invertTreeR(TreeNode root) {
+        if (root == null)
+            return null;
+        TreeNode tempRight = root.right;
+        root.right = invertTree(root.left);
+        root.left = invertTree(tempRight);
+        return root;
     }
 }

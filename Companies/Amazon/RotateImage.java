@@ -29,22 +29,26 @@ public class RotateImage {
     }
 
     public void rotate2(int[][] matrix) {
-        for(int i = 0; i<matrix.length; i++){ 
-            for(int j = i; j<matrix[0].length; j++){
-                int temp = 0;
-                temp = matrix[i][j];
-                matrix[i][j] = matrix[j][i]; // transpose
+        if (matrix == null || matrix.length <= 1) {
+            return;
+        }
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {// transpose
+            for (int j = i; j < n; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
             }
         }
-        for(int i =0 ; i<matrix.length; i++){
-            for(int j = 0; j<matrix.length/2; j++){
-                int temp = 0;
-                temp = matrix[i][j];
-                matrix[i][j] = matrix[i][matrix.length-1-j]; // horizontal flip
-                matrix[i][matrix.length-1-j] = temp;
+        for (int i = 0; i < n; i++) { // horizontal flip
+
+            for (int head = 0, tail = n - 1; head < tail; head++, tail--) {
+                int temp = matrix[i][head];
+                matrix[i][head] = matrix[i][tail];
+                matrix[i][tail] = temp;
             }
         }
+        System.out.println(Arrays.deepToString(matrix));
     }
 
     public static void main(String[] a) {
@@ -53,7 +57,7 @@ public class RotateImage {
          */
         RotateImage ri = new RotateImage();
 
-        ri.rotate(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
+        ri.rotate2(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
     }
 
 }

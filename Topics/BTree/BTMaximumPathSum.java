@@ -31,7 +31,7 @@ public class BTMaximumPathSum {
         if (root == null) {
             return 0;
         }
-        int left = Math.max(0, helper(root.left));
+        int left = Math.max(0, helper(root.left)); // bound to 0, discard negatives
         int right = Math.max(0, helper(root.right));
         max = Math.max(max, left + right + root.val);
         return root.val + Math.max(left, right);

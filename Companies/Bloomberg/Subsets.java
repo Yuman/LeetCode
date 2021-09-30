@@ -17,7 +17,7 @@ public class Subsets {
     }
 // aka backtracking
     private void dfs(List<List<Integer>> res, Deque<Integer> curr, int[] nums, int start) {
-        res.add(new LinkedList<>(curr));  // add a copy of the subset without the num[start]
+        res.add(new LinkedList<>(curr)); // add a copy of the subset without the num[start]
                                          // base case when start == nums.length-1
                                          // implicit return
                                          // start++ driving toward the base
@@ -33,7 +33,7 @@ public class Subsets {
 
     /*
      * While iterating through all numbers, for each new number, we can either pick
-     * it or not pick it 1, if pick, just add current number to every existing
+     * it or not pick it 1. if picking, just add current number to every existing
      * subset. 2, if not pick, just leave all existing subsets as they are. We just
      * combine both into our result.
      * 
@@ -52,13 +52,17 @@ public class Subsets {
      * 
      * https://leetcode.com/problems/subsets/discuss/122645/3ms-easiest-solution-no-
      * backtracking-no-bit-manipulation-no-dfs-no-bullshit
+     * 
+     * Note that the nested loop is over a growing collection
+     * A similar technique is used in mergeSubsets or unionfind, where loop is over a shrinking list
+     * @see NumberofConnectedComponentsinUndirectedGraph
      */
     public List<List<Integer>> subsetsI(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        result.add(new ArrayList<>()); // add the base, seed, subset
+        result.add(new ArrayList<>()); // add the base, or seed, subset
         for (int n : nums) {  // loop over each element
             int size = result.size(); // to read by index, avoiding ConcurrentModificationException
-            for (int i = 0; i < size; i++) { //loop over each subset without the element
+            for (int i = 0; i < size; i++) { //loop over each subset without the element. can't use result.size() here
                 List<Integer> subset = new ArrayList<>(result.get(i));
                 subset.add(n);
                 result.add(subset);

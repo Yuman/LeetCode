@@ -4,7 +4,9 @@ import Libs.Node;
 
 import java.util.*;
 // https://leetcode.com/problems/clone-graph/
-
+/**
+ * @see CopyListwithRandomPointer
+ */
 public class CloneGraph {
     public Node cloneGraph(Node node) {
         if (node == null) {
@@ -37,12 +39,12 @@ public class CloneGraph {
     }
 
     private Node cloneDfs(Node node, Map<Integer, Node> visited) {
-        if (visited.containsKey(node.val))
+        if (visited.containsKey(node.val))            // 1. Base case: check for shortcircuit
             return visited.get(node.val);
 
-        Node copy = new Node(node.val, new ArrayList<Node>());
-        visited.put(copy.val, copy);
-        for (Node neighbor : node.neighbors)
+        Node copy = new Node(node.val, new ArrayList<Node>());  // copy self
+        visited.put(copy.val, copy);                            // track self
+        for (Node neighbor : node.neighbors)                    // recurse neighbors. Check/copy/track/Recurse
             copy.neighbors.add(cloneDfs(neighbor, visited));
         return copy;
     }

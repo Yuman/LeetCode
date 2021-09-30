@@ -13,7 +13,7 @@ public class MinimumDominoRotationsForEqualRow {
             }
         }
         for (int i = 1; i < 7; i++) {
-            if (countA[i]+countB[i]-same[i] >= A.length) {
+            if (countA[i] + countB[i] - same[i] >= A.length) {
                 return Math.min(countA[i], countB[i]) - same[i];
             }
         }
@@ -28,7 +28,7 @@ public class MinimumDominoRotationsForEqualRow {
             if (B[i] != A[0]) {
                 b++;
             }
-            if (i == A.length-1) {
+            if (i == A.length - 1) {
                 return Math.min(a, b);
             }
         }
@@ -39,10 +39,25 @@ public class MinimumDominoRotationsForEqualRow {
             if (B[i] != B[0]) {
                 b++;
             }
-            if (i == A.length-1) {
+            if (i == A.length - 1) {
                 return Math.min(a, b);
             }
         }
+        return -1;
+    }
+
+    public int minDominoRotationsCount(int[] A, int[] B) {
+        int[] countA = new int[7], countB = new int[7], same = new int[7];
+        int n = A.length;
+        for (int i = 0; i < n; ++i) {
+            countA[A[i]]++;
+            countB[B[i]]++;
+            if (A[i] == B[i])
+                same[A[i]]++;
+        }
+        for (int i = 1; i < 7; ++i)
+            if (countA[i] + countB[i] - same[i] == n)
+                return n - Math.max(countA[i], countB[i]);
         return -1;
     }
 }

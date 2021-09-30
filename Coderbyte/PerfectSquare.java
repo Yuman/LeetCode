@@ -1,11 +1,20 @@
 package Coderbyte;
 
 public class PerfectSquare {
+    // https://qr.ae/pGSBzB
     public boolean isSquareSubtract(int num) {
-        for (int i = 1; num > 0; i += 2) {
-            num -= i;
+        for (int odd = 1; num > 0; odd += 2) {
+            num -= odd;
         }
         return num == 0;
+    }
+
+    public boolean isSquareAdd(int num) {
+        int sum = 0;
+        for (int odd = 1; num > sum; odd += 2) {
+            sum += odd;
+        }
+        return num == sum;
     }
 
     public boolean isSquareSearch(int num) {
@@ -15,7 +24,7 @@ public class PerfectSquare {
         for (long l = 1, r = num; l <= r; m = (l + r) / 2) {
             if (m * m == num)
                 return true;
-            if (m*m > num ) {// m too big
+            if (m * m > num) {// m too big
                 r = m - 1;
             } else {
                 l = m + 1;
@@ -39,10 +48,24 @@ public class PerfectSquare {
         return num == 1;
     }
 
+    public boolean isSqureBab(int num) {
+        int previous = num;
+        int x = num / 2;
+        while (x * x != num) {
+            x = (x + (num / x)) / 2;
+            if (x >= previous)
+                return false;
+            previous = x;
+        }
+        return true;
+    }
+
     public static void main(String[] a) {
         PerfectSquare ps = new PerfectSquare();
-        System.out.println("subtract: " + ps.isSquareSubtract(9));
-        System.out.println("search: " + ps.isSquareSearch(9));
-        System.out.println("factor: " + ps.isSquareFactor(8));
+        System.out.println("subtract: " + ps.isSquareSubtract(256));
+        System.out.println("add: " + ps.isSquareAdd(256));
+        System.out.println("search: " + ps.isSquareSearch(256));
+        System.out.println("factor: " + ps.isSquareFactor(256));
+        System.out.println("bab: " + ps.isSqureBab(256));
     }
 }

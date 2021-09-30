@@ -4,30 +4,36 @@ import Libs.TreeNode;
 
 import java.util.*;
 
+/*
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+*/
 public class BTLevelOrderTraversal {
     public List<List<Integer>> levelOrder(TreeNode root) {
-//        List<List<Integer>> re = new ArrayList<>();
-//        if (root == null) {
-//            return re;
-//        }
-//        Queue<TreeNode> q = new LinkedList<>();
-//        q.add(root);
-//        while (!q.isEmpty()) {
-//            int size = q.size();
-//            re.add(new ArrayList<>());
-//            for (int i = 0; i < size; i++) {
-//                TreeNode cur = q.poll();
-//                re.get(re.size()-1).add(cur.val);
-//                if (cur.left != null) {
-//                    q.add(cur.left);
-//                }
-//                if (cur.right != null) {
-//                    q.add(cur.right);
-//                }
-//            }
-//        }
-//        return re;
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        List<List<Integer>> wrapList = new LinkedList<List<Integer>>();
 
+        if (root == null)
+            return wrapList;
+
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int levelNum = queue.size();
+            List<Integer> subList = new LinkedList<Integer>();
+            for (int i = 0; i < levelNum; i++) {
+                if (queue.peek().left != null)
+                    queue.offer(queue.peek().left);
+                if (queue.peek().right != null)
+                    queue.offer(queue.peek().right);
+                subList.add(queue.poll().val);
+            }
+            wrapList.add(subList);
+        }
+        return wrapList;
+
+    }
+
+    public List<List<Integer>> levelOrderR(TreeNode root) {
         List<List<Integer>> re = new ArrayList<>();
         helper(re, root, 0);
         return re;
@@ -39,8 +45,8 @@ public class BTLevelOrderTraversal {
                 re.add(new ArrayList<>());
             }
             re.get(level).add(root.val);
-            helper(re, root.left, level+1);
-            helper(re, root.right, level+1);
+            helper(re, root.left, level + 1);
+            helper(re, root.right, level + 1);
         }
     }
 }

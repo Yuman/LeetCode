@@ -45,14 +45,14 @@ public class MergeKSortedLists {
     }
 
     public ListNode mergeKListsII(ListNode[] lists) {
-        PriorityQueue<ListNode> p = new PriorityQueue<>((a,b)->a.val-b.val);
+        PriorityQueue<ListNode> p = new PriorityQueue<>((a,b)->a.val-b.val); // the comparator is optional
         for (ListNode l : lists) {
             if (l != null) {
                 p.add(l);
             }
         }
-        ListNode re = new ListNode(0);
-        ListNode tail = re;
+        ListNode head = new ListNode(0);
+        ListNode tail = head;
         while (!p.isEmpty()) {
             ListNode cur = p.poll();
             tail.next = new ListNode(cur.val);
@@ -62,6 +62,6 @@ public class MergeKSortedLists {
                 p.add(cur);
             }
         }
-        return re.next;
+        return head.next;
     }
 }

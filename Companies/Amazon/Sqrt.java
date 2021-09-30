@@ -41,6 +41,8 @@ public class Sqrt {
         for (int left = 1, right = x; left < right;) {
             if ((left + 1) > x / (left + 1))
                 return left;
+            if (right * right <= x)
+                return right;
             mid = (left + right) / 2;
             if (mid < x / mid) {// mid is too low
                 left = mid;
@@ -118,26 +120,52 @@ public class Sqrt {
     }
 
     private int sqrtBabRhelp(int x, int guess) {
-        if (guess * guess == x) {
+        if (guess * guess == x || ((guess + 1) * (guess + 1) > x && guess * guess < x)) {
             return guess;
-        }
-        if (guess * guess < x && (guess + 1) * (guess + 1) > x) {
-            return guess;
-        }
+        } else
+            return sqrtBabRhelp(x, (guess + x / guess) / 2);
+    }
 
-        return sqrtBabRhelp(x, (guess  + x / guess) / 2);
+    // http://compsci.hunter.cuny.edu/~sweiss/course_materials/csci135/csci136labs/lab02.pdf
+    public int sqrtBakh(int s) {
+        double guess = s / 2;
+        while ( Math.abs(guess * guess - s) > 0.1) {
+            double diff = s - guess * guess;
+            double ratio = diff / 2 / guess;
+            double sum = guess + ratio;
+            guess = sum - ratio * ratio / 2 / sum;
+        }
+        return (int) guess;
+    }
+
+    public int sqrtBakhR(int s) {
+        return (int) sqrtBakhRHelp(s, s / 2);
+    }
+
+    private double sqrtBakhRHelp(double sq, double guess) {
+        if (Math.abs(guess * guess - sq) < 0.01)
+            return guess;
+        else {
+            double diff = sq - guess * guess;
+            double ratio = diff / 2 / guess;
+            double sum = guess + ratio;
+            guess = sum - ratio * ratio / 2 / sum;
+            return sqrtBakhRHelp(sq, guess);
+        }
     }
 
     public static void main(String[] args) {
         Sqrt rt = new Sqrt();
-        System.out.println("mySqrt: " + rt.mySqrt(35));
-        System.out.println("mySqrtI: " + rt.mySqrtI(35));
-        System.out.println("mySqrtI: " + rt.mySqrtII(35));
-        System.out.println("sqrtRec: " + rt.sqrtRec(35));
-        System.out.println("sqrtRec2: " + rt.sqrtRec2(35));
-        System.out.println("sqrtBab: " + rt.sqrtBab(35));
-        System.out.println("sqrtBabR: " + rt.sqrtBabR(2147395600));
-        System.out.println("sqrtBabR: " + rt.sqrtBabR(2147483647));
-        
+        System.out.println("mySqrt: " + rt.mySqrt(122));
+        System.out.println("sqrtSearch: " + rt.sqrtSearch(122));
+        System.out.println("mySqrtI: " + rt.mySqrtI(122));
+        System.out.println("mySqrtII: " + rt.mySqrtII(122));
+        System.out.println("sqrtRec: " + rt.sqrtRec(122));
+        System.out.println("sqrtRec2: " + rt.sqrtRec2(122));
+        System.out.println("sqrtBab: " + rt.sqrtBab(122));
+        System.out.println("sqrtBabR: " + rt.sqrtBabR(122));
+        // System.out.println("sqrtBabR: " + rt.sqrtBabR(22123456));
+        System.out.println("sqrtBakh: " + rt.sqrtBakh(122));
+        System.out.println("sqrtBakhR: " + rt.sqrtBakhR(122));
     }
 }
