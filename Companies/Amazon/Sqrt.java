@@ -128,17 +128,22 @@ public class Sqrt {
 
     // http://compsci.hunter.cuny.edu/~sweiss/course_materials/csci135/csci136labs/lab02.pdf
     public int sqrtBakh(int s) {
+        if (s < 0)
+            throw new IllegalArgumentException("The square must be positive.");
         double guess = s / 2;
-        while ( Math.abs(guess * guess - s) > 0.1) {
-            double diff = s - guess * guess;
-            double ratio = diff / 2 / guess;
-            double sum = guess + ratio;
+        for (double diff = 0, ratio = 0, sum = 0; Math.abs(guess * guess - s) > 0.1; System.out
+                .println("Guess: " + guess)) {
+            diff = s - guess * guess;
+            ratio = diff / 2 / guess;
+            sum = guess + ratio;
             guess = sum - ratio * ratio / 2 / sum;
         }
         return (int) guess;
     }
 
     public int sqrtBakhR(int s) {
+        if (s < 0)
+            throw new IllegalArgumentException("The square must be positive.");
         return (int) sqrtBakhRHelp(s, s / 2);
     }
 

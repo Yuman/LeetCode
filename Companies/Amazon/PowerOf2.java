@@ -8,11 +8,11 @@ An integer n is a power of two, if there exists an integer x such that n == 2x.
  
 */
 public class PowerOf2 {
-    public boolean isPowerOfTwoR(int n) {
-        return n > 0 && (n == 1 || (n % 2 == 0 && isPowerOfTwoR(n / 2)));
+    public boolean isPowerOfTwoRec(int n) {
+        return n > 0 && (n == 1 || (n % 2 == 0 && isPowerOfTwoRec(n / 2)));
     }
 
-    public boolean isPowerOfTwoI(int n) {
+    public boolean isPowerOfTwoMultiply(int n) {
         long i = 1;
         while (i < n) {
             i *= 2;
@@ -20,11 +20,11 @@ public class PowerOf2 {
         return i == n;
     }
 
-    public boolean isPowerOfTwoM(int n) {
+    public boolean isPowerOfTwoMod(int n) {
         return 2 << 30 % n == 0;
     }
 
-    public boolean isPowerOfTwoD(int n) {
+    public boolean isPowerOfTwoDiv(int n) {
         if (n <= 0)
             return false;
         while (n % 2 == 0)
@@ -32,16 +32,16 @@ public class PowerOf2 {
         return n == 1;
     }
 
-    public boolean isPowerOfTwoB(int n) {
-        return n > 0 && ((n & (n-1)) == 0);
+    public boolean isPowerOfTwoBin(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
     }
 
     public static void main(String[] a) {
         PowerOf2 po2 = new PowerOf2();
-        System.out.println("R: " + po2.isPowerOfTwoR(12));
-        System.out.println("I: " + po2.isPowerOfTwoI(12));
-        System.out.println("M: " + po2.isPowerOfTwoM(12));
-        System.out.println("D: " + po2.isPowerOfTwoD(12));
-        System.out.println("B: " + po2.isPowerOfTwoB(12));
+        System.out.println("R: " + po2.isPowerOfTwoRec(12));
+        System.out.println("I: " + po2.isPowerOfTwoMultiply(12));
+        System.out.println("M: " + po2.isPowerOfTwoMod(12));
+        System.out.println("D: " + po2.isPowerOfTwoDiv(12));
+        System.out.println("B: " + po2.isPowerOfTwoBin(12));
     }
 }

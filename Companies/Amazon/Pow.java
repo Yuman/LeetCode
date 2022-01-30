@@ -23,7 +23,6 @@ public class Pow {
             prod *= prod;
         }
         return re;
-
     }
 
     private double powRecursive(double x, long n) {
@@ -37,11 +36,21 @@ public class Pow {
         if (n % 2 == 0) {
             return half * half;
         } else {
-            return half * half * x;  // this handles odd n including 1, when half=1
+            return half * half * x; // this handles odd n including 1, when half=1
         }
     }
 
-    public static void main(String[] args){
+    double myPowR(double x, int n) {
+        if (n == 0)
+            return 1;
+        if (n < 0) {
+            n = -n;
+            x = 1 / x;
+        }
+        return n % 2 == 0 ? myPow(x * x, n / 2) : x * myPow(x * x, n / 2);
+    }
+
+    public static void main(String[] args) {
         Pow pow = new Pow();
         System.out.println(pow.myPow(1.1, 3));
         System.out.println(pow.powRecursive(1.1, 3));

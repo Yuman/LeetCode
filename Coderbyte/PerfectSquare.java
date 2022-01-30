@@ -22,6 +22,7 @@ public class PerfectSquare {
             return true;
         long m = num / 2; // use long to avoid overflow
         for (long l = 1, r = num; l <= r; m = (l + r) / 2) {
+            System.out.println("Search Trying: " + m);
             if (m * m == num)
                 return true;
             if (m * m > num) {// m too big
@@ -34,7 +35,10 @@ public class PerfectSquare {
     }
 
     public boolean isSquareFactor(int num) {
-        for (int f = 2; num > 1;) {
+        if (num == 1)
+            return true;
+        for (int f = 2; num > 1 && num >= f * f;) {
+            System.out.println("Factor Trying: " + num);
             if (num % f == 0) {
                 num /= f;
                 if (num % f == 0) {
@@ -48,10 +52,27 @@ public class PerfectSquare {
         return num == 1;
     }
 
+    public boolean isSquareFactor2(int num) {
+        if (num == 1)
+            return true;
+        for (int f = 2; num > 1 && num >= f * f;) {
+            System.out.println("Factor2 Trying: " + num);
+            if (num % (f * f) == 0) {
+                num /= (f * f);
+            } // extracted f*f
+            else
+                f++;
+        }
+        return num == 1;
+    }
+
     public boolean isSqureBab(int num) {
+        if (num == 1)
+            return true;
         int previous = num;
-        int x = num / 2;
+        int x = num;
         while (x * x != num) {
+            System.out.println("Bab Trying: " + x);
             x = (x + (num / x)) / 2;
             if (x >= previous)
                 return false;
@@ -64,8 +85,9 @@ public class PerfectSquare {
         PerfectSquare ps = new PerfectSquare();
         System.out.println("subtract: " + ps.isSquareSubtract(256));
         System.out.println("add: " + ps.isSquareAdd(256));
-        System.out.println("search: " + ps.isSquareSearch(256));
-        System.out.println("factor: " + ps.isSquareFactor(256));
-        System.out.println("bab: " + ps.isSqureBab(256));
+        System.out.println("search: " + ps.isSquareSearch(1000000));
+        System.out.println("factor: " + ps.isSquareFactor(1000000));
+        System.out.println("factor2: " + ps.isSquareFactor2(1000000));
+        System.out.println("bab: " + ps.isSqureBab(10000));
     }
 }

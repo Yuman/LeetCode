@@ -14,8 +14,8 @@ public class PascalsTriangle {
         List<Integer> l = new ArrayList<>();
         for (int i = 0; i < numRows; i++) {
             l.add(0, 1);
-            for (int j = 1; j < l.size()-1; j++) {
-                l.set(j, l.get(j)+l.get(j+1));
+            for (int j = 1; j < l.size() - 1; j++) {
+                l.set(j, l.get(j) + l.get(j + 1));
             }
             re.add(new ArrayList<>(l));
         }
@@ -36,16 +36,16 @@ public class PascalsTriangle {
         if (numRows == 1) {
             re.add(Arrays.asList(1));
         } else {
-            helper(re, numRows-1);
-            List<Integer> prev = re.get(numRows-2);
+            helper(re, numRows - 1);
+            List<Integer> prev = re.get(numRows - 2);
             List<Integer> cur = new ArrayList<>();
             for (int i = 0; i < prev.size(); i++) {
                 if (i == 0) {
                     cur.add(1);
                 } else {
-                    cur.add(prev.get(i) + prev.get(i-1));
+                    cur.add(prev.get(i) + prev.get(i - 1));
                 }
-                if (i == prev.size()-1) {
+                if (i == prev.size() - 1) {
                     cur.add(1);
                 }
             }
@@ -58,10 +58,15 @@ public class PascalsTriangle {
         List<Integer> re = new ArrayList<>();
         for (int i = 0; i <= rowIndex; i++) {
             re.add(0, 1);
-            for (int j = 1; j < re.size()-1; j++) {
-                re.set(j, re.get(j) + re.get(j+1));
+            for (int j = 1; j < re.size() - 1; j++) {
+                re.set(j, re.get(j) + re.get(j + 1));
             }
         }
         return re;
+    }
+
+    public static void main(String[] args) {
+        PascalsTriangle pt = new PascalsTriangle();
+        pt.generate(4);
     }
 }
